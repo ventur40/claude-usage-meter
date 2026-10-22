@@ -1,4 +1,4 @@
-UUID = claude-usage-meter@kelmia.com
+UUID = claude-usage-meter@ventur40.github.io
 ZIP = $(UUID).shell-extension.zip
 SOURCES = usage.js icons
 

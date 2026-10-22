@@ -33,7 +33,7 @@ make install
 Then log out and back in (Wayland) and enable it:
 
 ```sh
-gnome-extensions enable claude-usage-meter@kelmia.com
+gnome-extensions enable claude-usage-meter@ventur40.github.io
 ```
 
 ## Development
