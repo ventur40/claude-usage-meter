@@ -1,0 +1,41 @@
+.cum-panel-label {
+    padding-left: 4px;
+}
+
+.cum-warning {
+    color: #f6d32d;
+}
+
+.cum-critical {
+    color: #ff7b63;
+}
+
+.cum-limit-name {
+    font-weight: bold;
+}
+
+.cum-limit-reset,
+.cum-status {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.cum-bar-track {
+    height: 6px;
+    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.cum-bar-fill {
+    height: 6px;
+    border-radius: 3px;
+    background-color: #62a0ea;
+}
+
+.cum-bar-fill.cum-warning {
+    background-color: #f6d32d;
+}
+
+.cum-bar-fill.cum-critical {
+    background-color: #ff7b63;
+}

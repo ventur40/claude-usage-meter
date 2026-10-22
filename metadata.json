@@ -1,0 +1,16 @@
+{
+    "uuid": "claude-usage-meter@kelmia.com",
+    "name": "Claude Usage Meter",
+    "description": "Shows the usage limits of your Claude Pro or Max plan in the top bar: the 5-hour session window, the weekly window and any per-model weekly limits, with reset times.\n\nRequires Claude Code to be installed and signed in. The extension reads the OAuth access token Claude Code stores in ~/.claude/.credentials.json and sends it only to api.anthropic.com to fetch your usage. It never refreshes or writes the token; when it expires, running Claude Code renews it.\n\nUnofficial. Not affiliated with or endorsed by Anthropic.",
+    "shell-version": [
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+    ],
+    "url": "https://github.com/CHANGE-ME/claude-usage-meter",
+    "settings-schema": "org.gnome.shell.extensions.claude-usage-meter",
+    "gettext-domain": "claude-usage-meter"
+}

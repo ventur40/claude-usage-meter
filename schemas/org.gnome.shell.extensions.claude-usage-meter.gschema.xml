@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="claude-usage-meter">
+  <enum id="org.gnome.shell.extensions.claude-usage-meter.PanelDisplay">
+    <value nick="icon" value="0"/>
+    <value nick="session" value="1"/>
+    <value nick="weekly" value="2"/>
+    <value nick="both" value="3"/>
+    <value nick="highest" value="4"/>
+  </enum>
+
+  <schema id="org.gnome.shell.extensions.claude-usage-meter"
+          path="/org/gnome/shell/extensions/claude-usage-meter/">
+    <key name="panel-display" enum="org.gnome.shell.extensions.claude-usage-meter.PanelDisplay">
+      <default>'both'</default>
+      <summary>What to show in the top bar next to the icon</summary>
+    </key>
+    <key name="refresh-interval" type="u">
+      <range min="2" max="60"/>
+      <default>5</default>
+      <summary>Minutes between usage checks</summary>
+    </key>
+    <key name="warning-threshold" type="u">
+      <range min="1" max="100"/>
+      <default>75</default>
+      <summary>Percentage at which a limit is shown as a warning</summary>
+    </key>
+    <key name="critical-threshold" type="u">
+      <range min="1" max="100"/>
+      <default>90</default>
+      <summary>Percentage at which a limit is shown as critical</summary>
+    </key>
+    <key name="config-dir" type="s">
+      <default>''</default>
+      <summary>Claude Code configuration directory</summary>
+      <description>Folder that holds .credentials.json. Empty means $CLAUDE_CONFIG_DIR, or ~/.claude when that is not set.</description>
+    </key>
+  </schema>
+</schemalist>

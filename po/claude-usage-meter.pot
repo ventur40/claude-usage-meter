@@ -1,0 +1,139 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the claude-usage-meter package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: claude-usage-meter\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-22 14:04+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: extension.js:23
+msgid "Session (5 h)"
+msgstr ""
+
+#: extension.js:25 prefs.js:25
+msgid "Weekly"
+msgstr ""
+
+#: extension.js:31
+#, javascript-format
+msgid "Weekly · %s"
+msgstr ""
+
+#: extension.js:38
+#, javascript-format
+msgid "%d min"
+msgstr ""
+
+#: extension.js:40
+#, javascript-format
+msgid "%d h %d min"
+msgstr ""
+
+#: extension.js:43
+#, javascript-format
+msgid "%d d %d h"
+msgstr ""
+
+#: extension.js:48
+#, javascript-format
+msgid "Resets in %s (%s)"
+msgstr ""
+
+#: extension.js:54
+msgid "Claude Code credentials not found. Install Claude Code and sign in."
+msgstr ""
+
+#: extension.js:56
+msgid "The Claude Code session has expired. Run Claude Code to renew it."
+msgstr ""
+
+#: extension.js:58
+msgid "Too many requests. Trying again later."
+msgstr ""
+
+#: extension.js:60
+#, javascript-format
+msgid "Could not get usage: %s"
+msgstr ""
+
+#: extension.js:119
+msgid "Claude Usage"
+msgstr ""
+
+#: extension.js:154
+msgid "Refresh now"
+msgstr ""
+
+#: extension.js:155
+msgid "Settings"
+msgstr ""
+
+#: extension.js:277
+#, javascript-format
+msgid "Updated at %s"
+msgstr ""
+
+#: extension.js:279
+msgid "Loading…"
+msgstr ""
+
+#: prefs.js:17
+msgid "Top Bar"
+msgstr ""
+
+#: prefs.js:21
+msgid "Show"
+msgstr ""
+
+#: prefs.js:23
+msgid "Icon only"
+msgstr ""
+
+#: prefs.js:24
+msgid "Session"
+msgstr ""
+
+#: prefs.js:26
+msgid "Session and weekly"
+msgstr ""
+
+#: prefs.js:27
+msgid "Highest limit"
+msgstr ""
+
+#: prefs.js:35
+msgid "Warning at (%)"
+msgstr ""
+
+#: prefs.js:36
+msgid "Critical at (%)"
+msgstr ""
+
+#: prefs.js:38
+msgid "Data"
+msgstr ""
+
+#: prefs.js:41
+msgid "Refresh every (minutes)"
+msgstr ""
+
+#: prefs.js:43
+msgid "Claude Code folder (empty: ~/.claude)"
+msgstr ""
+
+#: prefs.js:48
+msgid ""
+"Unofficial extension, not affiliated with Anthropic. Your token is read from "
+"Claude Code and only sent to api.anthropic.com."
+msgstr ""
