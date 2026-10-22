@@ -94,7 +94,8 @@ class LimitItem extends PopupMenu.PopupBaseMenuItem {
         track.set_child(this._fill);
         column.add_child(track);
 
-        this._reset = new St.Label({style_class: 'cum-limit-reset'});
+        // Dimmed with opacity so it follows the theme's text colour.
+        this._reset = new St.Label({style_class: 'cum-limit-reset', opacity: 180});
         column.add_child(this._reset);
     }
 
@@ -147,6 +148,7 @@ class UsageIndicator extends PanelMenu.Button {
 
         this._status = new PopupMenu.PopupMenuItem('', {reactive: false, can_focus: false});
         this._status.label.add_style_class_name('cum-status');
+        this._status.label.opacity = 180;
         this._status.label.clutter_text.line_wrap = true;
         this.menu.addMenuItem(this._status);
 

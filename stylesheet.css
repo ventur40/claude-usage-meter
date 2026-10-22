@@ -3,11 +3,11 @@
 }
 
 .cum-warning {
-    color: #f6d32d;
+    color: #e5a50a;
 }
 
 .cum-critical {
-    color: #ff7b63;
+    color: #e01b24;
 }
 
 .cum-limit-name {
@@ -17,25 +17,24 @@
 .cum-limit-reset,
 .cum-status {
     font-size: 0.9em;
-    color: rgba(255, 255, 255, 0.6);
 }
 
 .cum-bar-track {
     height: 6px;
     border-radius: 3px;
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgba(128, 128, 128, 0.3);
 }
 
 .cum-bar-fill {
     height: 6px;
     border-radius: 3px;
-    background-color: #62a0ea;
+    background-color: #3584e4;
 }
 
 .cum-bar-fill.cum-warning {
-    background-color: #f6d32d;
+    background-color: #e5a50a;
 }
 
 .cum-bar-fill.cum-critical {
-    background-color: #ff7b63;
+    background-color: #e01b24;
 }
