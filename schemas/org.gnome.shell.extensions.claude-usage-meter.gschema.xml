@@ -14,6 +14,11 @@
       <default>'both'</default>
       <summary>What to show in the top bar next to the icon</summary>
     </key>
+    <key name="show-icon" type="b">
+      <default>true</default>
+      <summary>Show the icon in the top bar</summary>
+      <description>The icon is always shown when the top bar is set to show only the icon.</description>
+    </key>
     <key name="refresh-interval" type="u">
       <range min="2" max="60"/>
       <default>5</default>

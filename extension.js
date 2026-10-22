@@ -128,7 +128,9 @@ class UsageIndicator extends PanelMenu.Button {
         this._busy = false;
         this._timeoutId = 0;
 
-        const box = new St.BoxLayout({style_class: 'panel-status-menu-box'});
+        this.add_style_class_name('cum-panel-button');
+
+        const box = new St.BoxLayout({style_class: 'panel-status-menu-box cum-panel-box'});
         this._icon = new St.Icon({
             gicon: Gio.icon_new_for_string(
                 `${extension.path}/icons/claude-usage-meter-symbolic.svg`),
@@ -249,8 +251,13 @@ class UsageIndicator extends PanelMenu.Button {
         const display = this._settings.get_string('panel-display');
 
         this._label.visible = display !== 'icon';
+        this._icon.visible = display === 'icon' || this._settings.get_boolean('show-icon');
+        if (this._icon.visible)
+            this._label.add_style_class_name('cum-after-icon');
+        else
+            this._label.remove_style_class_name('cum-after-icon');
         if (shown.length)
-            this._label.text = shown.map(l => `${Math.round(l.utilization)}%`).join(' · ');
+            this._label.text = shown.map(l => `${Math.round(l.utilization)}%`).join('\u2009·\u2009');
         else
             this._label.text = this._error ? '!' : '…';
 

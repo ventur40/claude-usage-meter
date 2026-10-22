@@ -66,6 +66,9 @@ msgstr "Mostrar"
 msgid "Icon only"
 msgstr "Solo el icono"
 
+msgid "Show icon"
+msgstr "Mostrar el icono"
+
 msgid "Session"
 msgstr "Sesión"
 

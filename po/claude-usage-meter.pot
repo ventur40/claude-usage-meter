@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: claude-usage-meter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-22 14:04+0200\n"
+"POT-Creation-Date: 2026-10-22 16:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,24 +67,24 @@ msgstr ""
 msgid "Could not get usage: %s"
 msgstr ""
 
-#: extension.js:119
+#: extension.js:120
 msgid "Claude Usage"
 msgstr ""
 
-#: extension.js:154
+#: extension.js:158
 msgid "Refresh now"
 msgstr ""
 
-#: extension.js:155
+#: extension.js:159
 msgid "Settings"
 msgstr ""
 
-#: extension.js:277
+#: extension.js:286
 #, javascript-format
 msgid "Updated at %s"
 msgstr ""
 
-#: extension.js:279
+#: extension.js:288
 msgid "Loading…"
 msgstr ""
 
@@ -113,26 +113,30 @@ msgid "Highest limit"
 msgstr ""
 
 #: prefs.js:35
+msgid "Show icon"
+msgstr ""
+
+#: prefs.js:39
 msgid "Warning at (%)"
 msgstr ""
 
-#: prefs.js:36
+#: prefs.js:40
 msgid "Critical at (%)"
 msgstr ""
 
-#: prefs.js:38
+#: prefs.js:42
 msgid "Data"
 msgstr ""
 
-#: prefs.js:41
+#: prefs.js:45
 msgid "Refresh every (minutes)"
 msgstr ""
 
-#: prefs.js:43
+#: prefs.js:47
 msgid "Claude Code folder (empty: ~/.claude)"
 msgstr ""
 
-#: prefs.js:48
+#: prefs.js:52
 msgid ""
 "Unofficial extension, not affiliated with Anthropic. Your token is read from "
 "Claude Code and only sent to api.anthropic.com."

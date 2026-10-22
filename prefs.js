@@ -32,6 +32,10 @@ export default class ClaudeUsageMeterPreferences extends ExtensionPreferences {
             settings.set_string('panel-display', DISPLAY_MODES[display.selected]));
         panel.add(display);
 
+        const showIcon = new Adw.SwitchRow({title: _('Show icon')});
+        settings.bind('show-icon', showIcon, 'active', Gio.SettingsBindFlags.DEFAULT);
+        panel.add(showIcon);
+
         panel.add(this._spinRow(settings, 'warning-threshold', _('Warning at (%)'), 1, 100));
         panel.add(this._spinRow(settings, 'critical-threshold', _('Critical at (%)'), 1, 100));
 

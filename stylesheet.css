@@ -1,5 +1,14 @@
-.cum-panel-label {
-    padding-left: 4px;
+.panel-button.cum-panel-button {
+    -natural-hpadding: 6px;
+    -minimum-hpadding: 4px;
+}
+
+.cum-panel-box {
+    spacing: 0;
+}
+
+.cum-panel-label.cum-after-icon {
+    padding-left: 3px;
 }
 
 .cum-warning {
