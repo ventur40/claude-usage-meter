@@ -20,9 +20,23 @@ token and calls `https://api.anthropic.com/api/oauth/usage`, the same
 endpoint Claude Code uses for `/usage`.
 
 - The token is only sent to `api.anthropic.com`.
-- The extension never refreshes or writes the token. When it expires, run
-  Claude Code and it renews it.
+- The access token lasts a few hours and Claude Code only renews it when it
+  runs. When the extension finds it expired, it runs `claude auth status`
+  (without `CLAUDE_CODE_OAUTH_TOKEN`), which makes Claude Code renew it. That
+  command sends no prompt and uses no plan usage. It can be turned off in the
+  settings, and the extension never writes the credentials file itself.
 - The endpoint is not documented by Anthropic and may change without notice.
+
+## Troubleshooting
+
+**"The Claude Code session has expired"** and it does not recover: if you use
+`CLAUDE_CODE_OAUTH_TOKEN` (from `claude setup-token`), Claude Code ignores
+`.credentials.json` and never updates it. Sign in once with `/login` running
+`env -u CLAUDE_CODE_OAUTH_TOKEN claude`, and keep automatic renewal on.
+
+**"the claude command was not found"**: GNOME Shell may not have the same
+`PATH` as your terminal (for example with nvm). Set the full path, from
+`which claude`, in the settings.
 
 ## Install from source
 

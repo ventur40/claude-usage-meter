@@ -1,7 +1,7 @@
 {
     "uuid": "claude-usage-meter@ventur40.github.io",
     "name": "Claude Usage Meter",
-    "description": "Shows the usage limits of your Claude Pro or Max plan in the top bar: the 5-hour session window, the weekly window and any per-model weekly limits, with reset times.\n\nRequires Claude Code to be installed and signed in. The extension reads the OAuth access token Claude Code stores in ~/.claude/.credentials.json and sends it only to api.anthropic.com to fetch your usage. It never refreshes or writes the token; when it expires, running Claude Code renews it.\n\nUnofficial. Not affiliated with or endorsed by Anthropic.",
+    "description": "Shows the usage limits of your Claude Pro or Max plan in the top bar: the 5-hour session window, the weekly window and any per-model weekly limits, with reset times.\n\nRequires Claude Code to be installed and signed in. The extension reads the OAuth access token Claude Code stores in ~/.claude/.credentials.json and sends it only to api.anthropic.com to fetch your usage. It never writes the token itself. When it expires, the extension runs \"claude auth status\" so Claude Code renews it; this sends no prompt, uses no plan usage and can be turned off in the settings.\n\nUnofficial. Not affiliated with or endorsed by Anthropic.",
     "shell-version": [
         "46",
         "47",

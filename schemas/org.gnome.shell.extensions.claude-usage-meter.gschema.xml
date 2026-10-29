@@ -34,6 +34,16 @@
       <default>90</default>
       <summary>Percentage at which a limit is shown as critical</summary>
     </key>
+    <key name="auto-renew" type="b">
+      <default>true</default>
+      <summary>Renew an expired Claude Code session</summary>
+      <description>When the access token has expired, run “claude auth status” so Claude Code renews it. It sends no prompt and uses no plan usage.</description>
+    </key>
+    <key name="claude-path" type="s">
+      <default>''</default>
+      <summary>Path to the claude command</summary>
+      <description>Empty means searching PATH, ~/.local/bin and ~/.claude/local.</description>
+    </key>
     <key name="config-dir" type="s">
       <default>''</default>
       <summary>Claude Code configuration directory</summary>

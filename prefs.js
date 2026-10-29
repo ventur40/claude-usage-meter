@@ -48,6 +48,17 @@ export default class ClaudeUsageMeterPreferences extends ExtensionPreferences {
         settings.bind('config-dir', configDir, 'text', Gio.SettingsBindFlags.DEFAULT);
         data.add(configDir);
 
+        const renew = new Adw.SwitchRow({
+            title: _('Renew expired session'),
+            subtitle: _('Runs “claude auth status”, which uses no plan usage'),
+        });
+        settings.bind('auto-renew', renew, 'active', Gio.SettingsBindFlags.DEFAULT);
+        data.add(renew);
+
+        const claudePath = new Adw.EntryRow({title: _('Path to claude (empty: search PATH)')});
+        settings.bind('claude-path', claudePath, 'text', Gio.SettingsBindFlags.DEFAULT);
+        data.add(claudePath);
+
         const about = new Adw.PreferencesGroup({
             description: _('Unofficial extension, not affiliated with Anthropic. Your token is read from Claude Code and only sent to api.anthropic.com.'),
         });

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: claude-usage-meter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-22 16:27+0200\n"
+"POT-Creation-Date: 2026-10-29 09:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,74 +17,82 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: extension.js:23
+#: extension.js:26
 msgid "Session (5 h)"
 msgstr ""
 
-#: extension.js:25 prefs.js:25
+#: extension.js:28 prefs.js:25
 msgid "Weekly"
 msgstr ""
 
-#: extension.js:31
+#: extension.js:34
 #, javascript-format
 msgid "Weekly · %s"
 msgstr ""
 
-#: extension.js:38
+#: extension.js:41
 #, javascript-format
 msgid "%d min"
 msgstr ""
 
-#: extension.js:40
+#: extension.js:43
 #, javascript-format
 msgid "%d h %d min"
 msgstr ""
 
-#: extension.js:43
+#: extension.js:46
 #, javascript-format
 msgid "%d d %d h"
 msgstr ""
 
-#: extension.js:48
+#: extension.js:51
 #, javascript-format
 msgid "Resets in %s (%s)"
 msgstr ""
 
-#: extension.js:54
+#: extension.js:57
 msgid "Claude Code credentials not found. Install Claude Code and sign in."
 msgstr ""
 
-#: extension.js:56
-msgid "The Claude Code session has expired. Run Claude Code to renew it."
+#: extension.js:59
+msgid ""
+"The Claude Code session has expired. Run Claude Code to renew it. If you use "
+"CLAUDE_CODE_OAUTH_TOKEN, run it without that variable."
 msgstr ""
 
-#: extension.js:58
+#: extension.js:61
+msgid ""
+"The Claude Code session has expired and the claude command was not found. "
+"Set its path in Settings."
+msgstr ""
+
+#: extension.js:63
 msgid "Too many requests. Trying again later."
 msgstr ""
 
-#: extension.js:60
+#: extension.js:65
 #, javascript-format
 msgid "Could not get usage: %s"
 msgstr ""
 
-#: extension.js:120
+#: extension.js:125
 msgid "Claude Usage"
 msgstr ""
 
-#: extension.js:158
+#: extension.js:164
 msgid "Refresh now"
 msgstr ""
 
-#: extension.js:159
+#: extension.js:165
 msgid "Settings"
 msgstr ""
 
-#: extension.js:286
+#: extension.js:321
 #, javascript-format
 msgid "Updated at %s"
 msgstr ""
 
-#: extension.js:288
+#: extension.js:323
 msgid "Loading…"
 msgstr ""
 
@@ -137,6 +145,18 @@ msgid "Claude Code folder (empty: ~/.claude)"
 msgstr ""
 
 #: prefs.js:52
+msgid "Renew expired session"
+msgstr ""
+
+#: prefs.js:53
+msgid "Runs “claude auth status”, which uses no plan usage"
+msgstr ""
+
+#: prefs.js:58
+msgid "Path to claude (empty: search PATH)"
+msgstr ""
+
+#: prefs.js:63
 msgid ""
 "Unofficial extension, not affiliated with Anthropic. Your token is read from "
 "Claude Code and only sent to api.anthropic.com."

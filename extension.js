@@ -11,11 +11,14 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 
-import {ErrorKind, UsageClient, UsageError, resolveConfigDir} from './usage.js';
+import {
+    ErrorKind, UsageClient, UsageError, findClaude, renewSession, resolveConfigDir,
+} from './usage.js';
 
 const BAR_WIDTH = 220;
 const MIN_REFRESH_ON_OPEN = 60 * 1000;
 const KNOWN_LIMITS = ['five_hour', 'seven_day'];
+const MIN_RENEW_INTERVAL = 10 * 60 * 1000;
 
 function limitName(id) {
     switch (id) {
@@ -53,7 +56,9 @@ function errorText(error) {
     case ErrorKind.NO_CREDENTIALS:
         return _('Claude Code credentials not found. Install Claude Code and sign in.');
     case ErrorKind.TOKEN_EXPIRED:
-        return _('The Claude Code session has expired. Run Claude Code to renew it.');
+        return _('The Claude Code session has expired. Run Claude Code to renew it. If you use CLAUDE_CODE_OAUTH_TOKEN, run it without that variable.');
+    case ErrorKind.NO_CLI:
+        return _('The Claude Code session has expired and the claude command was not found. Set its path in Settings.');
     case ErrorKind.RATE_LIMITED:
         return _('Too many requests. Trying again later.');
     default:
@@ -124,6 +129,7 @@ class UsageIndicator extends PanelMenu.Button {
         this._cancellable = new Gio.Cancellable();
         this._limits = [];
         this._lastSuccess = 0;
+        this._lastRenew = 0;
         this._error = null;
         this._busy = false;
         this._timeoutId = 0;
@@ -196,7 +202,14 @@ class UsageIndicator extends PanelMenu.Button {
 
         try {
             const configDir = resolveConfigDir(this._settings.get_string('config-dir'));
-            this._limits = await this._client.fetch(configDir, this._cancellable);
+            try {
+                this._limits = await this._client.fetch(configDir, this._cancellable);
+            } catch (e) {
+                if (e.kind !== ErrorKind.TOKEN_EXPIRED || !this._canRenew())
+                    throw e;
+                await this._renew();
+                this._limits = await this._client.fetch(configDir, this._cancellable);
+            }
             this._lastSuccess = Date.now();
             this._error = null;
         } catch (e) {
@@ -212,6 +225,28 @@ class UsageIndicator extends PanelMenu.Button {
         // The indicator may have been destroyed while the request was running.
         if (!this._cancellable.is_cancelled())
             this._render();
+    }
+
+    _canRenew() {
+        return this._settings.get_boolean('auto-renew') &&
+            Date.now() - this._lastRenew > MIN_RENEW_INTERVAL;
+    }
+
+    async _renew() {
+        this._lastRenew = Date.now();
+
+        const claude = findClaude(this._settings.get_string('claude-path'));
+        if (!claude)
+            throw new UsageError(ErrorKind.NO_CLI, 'claude');
+
+        try {
+            await renewSession(claude, this._settings.get_string('config-dir'), this._cancellable);
+        } catch (e) {
+            if (e instanceof UsageError || e.matches?.(Gio.IOErrorEnum, Gio.IOErrorEnum.CANCELLED))
+                throw e;
+            console.warn(`Claude Usage Meter: could not renew the session: ${e.message}`);
+            throw new UsageError(ErrorKind.TOKEN_EXPIRED, e.message);
+        }
     }
 
     _level(utilization) {

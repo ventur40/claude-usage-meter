@@ -1,7 +1,9 @@
 // Run with: gjs -m tests/test-usage.js
 import GLib from 'gi://GLib';
 import System from 'system';
-import {parseUsage, readAccessToken, resolveConfigDir, ErrorKind} from '../usage.js';
+import {
+    parseUsage, readAccessToken, renewSession, resolveConfigDir, ErrorKind,
+} from '../usage.js';
 
 let failures = 0;
 function check(name, cond) {
@@ -49,6 +51,24 @@ write({claudeAiOauth: {accessToken: 'abc', expiresAt: Date.now() - 1000}});
 await expectKind('expired token', ErrorKind.TOKEN_EXPIRED);
 write({claudeAiOauth: {accessToken: 'abc', expiresAt: Date.now() + 60000}});
 check('valid token', await readAccessToken(dir) === 'abc');
+
+// renewSession runs `claude auth status` without CLAUDE_CODE_OAUTH_TOKEN.
+const fake = `${dir}/claude`;
+GLib.file_set_contents(fake,
+    `#!/bin/sh\necho "$* token=\${CLAUDE_CODE_OAUTH_TOKEN:-unset} dir=$CLAUDE_CONFIG_DIR" > "${dir}/called"\n`);
+GLib.spawn_command_line_sync(`chmod +x ${fake}`);
+GLib.setenv('CLAUDE_CODE_OAUTH_TOKEN', 'secret', true);
+await renewSession(fake, '/tmp/cfg');
+const [, called] = GLib.file_get_contents(`${dir}/called`);
+check('renew runs auth status without the env token',
+    new TextDecoder().decode(called).trim() === 'auth status token=unset dir=/tmp/cfg');
+
+try {
+    await renewSession(`${dir}/missing`, '');
+    check('missing claude binary', false);
+} catch (e) {
+    check('missing claude binary', e.kind === ErrorKind.NO_CLI);
+}
 
 if (failures)
     System.exit(1);
