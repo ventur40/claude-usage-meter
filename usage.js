@@ -11,6 +11,7 @@ Gio._promisify(Gio.Subprocess.prototype, 'wait_check_async');
 const USAGE_URL = 'https://api.anthropic.com/api/oauth/usage';
 const OAUTH_BETA = 'oauth-2025-04-20';
 const RENEW_TIMEOUT = 30;
+const DEFAULT_RETRY_AFTER = 5 * 60;
 
 // Keys in the usage response that are not rolling windows.
 const IGNORED_KEYS = new Set(['extra_usage']);
@@ -25,10 +26,11 @@ export const ErrorKind = {
 };
 
 export class UsageError extends Error {
-    constructor(kind, message) {
+    constructor(kind, message, retryAfter = 0) {
         super(message);
         this.name = 'UsageError';
         this.kind = kind;
+        this.retryAfter = retryAfter;
     }
 }
 
@@ -163,27 +165,33 @@ export function parseUsage(data) {
 }
 
 export class UsageClient {
-    constructor() {
+    constructor(url = USAGE_URL) {
+        this._url = url;
         this._session = new Soup.Session({timeout: 20});
     }
 
     async fetch(configDir, cancellable = null) {
         const token = await readAccessToken(configDir, cancellable);
 
-        const message = Soup.Message.new('GET', USAGE_URL);
+        const message = Soup.Message.new('GET', this._url);
         message.request_headers.append('Authorization', `Bearer ${token}`);
         message.request_headers.append('anthropic-beta', OAUTH_BETA);
         message.request_headers.append('Accept', 'application/json');
 
         const bytes = await this._session.send_and_read_async(
             message, GLib.PRIORITY_DEFAULT, cancellable);
-        const status = message.get_status();
+        // Read the plain number: get_status() fails for codes missing from
+        // the Soup.Status enumeration, such as 429.
+        const status = message.status_code;
 
-        if (status === Soup.Status.UNAUTHORIZED)
+        if (status === 401)
             throw new UsageError(ErrorKind.TOKEN_EXPIRED, 'HTTP 401');
-        if (status === Soup.Status.TOO_MANY_REQUESTS)
-            throw new UsageError(ErrorKind.RATE_LIMITED, 'HTTP 429');
-        if (status !== Soup.Status.OK)
+        if (status === 429) {
+            const header = parseInt(message.response_headers.get_one('Retry-After'));
+            const retryAfter = header > 0 ? header : DEFAULT_RETRY_AFTER;
+            throw new UsageError(ErrorKind.RATE_LIMITED, 'HTTP 429', retryAfter);
+        }
+        if (status !== 200)
             throw new UsageError(ErrorKind.HTTP, `HTTP ${status}`);
 
         let data;

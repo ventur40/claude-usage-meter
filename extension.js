@@ -130,6 +130,7 @@ class UsageIndicator extends PanelMenu.Button {
         this._limits = [];
         this._lastSuccess = 0;
         this._lastRenew = 0;
+        this._blockedUntil = 0;
         this._error = null;
         this._busy = false;
         this._timeoutId = 0;
@@ -161,7 +162,7 @@ class UsageIndicator extends PanelMenu.Button {
         this.menu.addMenuItem(this._status);
 
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
-        this.menu.addAction(_('Refresh now'), () => this._refresh());
+        this.menu.addAction(_('Refresh now'), () => this._refresh(true));
         this.menu.addAction(_('Settings'), () => extension.openPreferences());
 
         this.menu.connectObject('open-state-changed', (_menu, open) => {
@@ -195,8 +196,9 @@ class UsageIndicator extends PanelMenu.Button {
         });
     }
 
-    async _refresh() {
-        if (this._busy)
+    async _refresh(force = false) {
+        // After a 429, wait as long as the server asked unless the user insists.
+        if (this._busy || (!force && Date.now() < this._blockedUntil))
             return;
         this._busy = true;
 
@@ -217,6 +219,8 @@ class UsageIndicator extends PanelMenu.Button {
                 return;
             if (!(e instanceof UsageError))
                 console.warn(`Claude Usage Meter: ${e.message}`);
+            if (e.kind === ErrorKind.RATE_LIMITED)
+                this._blockedUntil = Date.now() + e.retryAfter * 1000;
             this._error = e;
         } finally {
             this._busy = false;

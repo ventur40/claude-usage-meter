@@ -13,5 +13,5 @@
     "url": "https://github.com/ventur40/claude-usage-meter",
     "settings-schema": "org.gnome.shell.extensions.claude-usage-meter",
     "gettext-domain": "claude-usage-meter",
-    "version-name": "1.1"
+    "version-name": "1.2"
 }

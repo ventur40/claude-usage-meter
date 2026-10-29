@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2
+
+- Fix "429 is not a valid value for enumeration Status" when the usage API
+  answers 429 (too many requests).
+- After a 429, wait as long as the server asks (Retry-After) before checking
+  again. "Refresh now" still checks immediately.
+
 ## 1.1
 
 - Renew an expired Claude Code session automatically by running

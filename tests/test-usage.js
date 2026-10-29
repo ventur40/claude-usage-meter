@@ -2,7 +2,7 @@
 import GLib from 'gi://GLib';
 import System from 'system';
 import {
-    parseUsage, readAccessToken, renewSession, resolveConfigDir, ErrorKind,
+    parseUsage, readAccessToken, renewSession, resolveConfigDir, ErrorKind, UsageClient,
 } from '../usage.js';
 
 let failures = 0;
@@ -68,6 +68,18 @@ try {
     check('missing claude binary', false);
 } catch (e) {
     check('missing claude binary', e.kind === ErrorKind.NO_CLI);
+}
+
+// A 429 must become RATE_LIMITED with the server's Retry-After.
+const port = GLib.getenv('TEST_429_PORT');
+if (port) {
+    write({claudeAiOauth: {accessToken: 'abc', expiresAt: Date.now() + 60000}});
+    try {
+        await new UsageClient(`http://127.0.0.1:${port}/`).fetch(dir);
+        check('429 is rate limited', false);
+    } catch (e) {
+        check('429 is rate limited', e.kind === ErrorKind.RATE_LIMITED && e.retryAfter === 120);
+    }
 }
 
 if (failures)
